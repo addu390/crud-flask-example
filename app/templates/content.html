@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<div class="container">
+<div class="container-fluid">
     <div class="row">
 
         <div class="col-md-6">
@@ -12,10 +12,16 @@
                         <div class="form-group">
                             <input class="form-control" type="text" name="title" placeholder="Title" required>
                         </div>
+
                         <div class="form-group">
                             <textarea class="form-control" name="description" cols="100"
                                       placeholder="Add a Description"></textarea>
                         </div>
+
+                        <div class="form-group">
+                            <input class="form-control" type="number" name="quantity" placeholder="Quantity" required>
+                        </div>
+
                         <button class="btn btn-primary" type="submit">Add</button>
                     </form>
                 </div>
@@ -30,12 +36,13 @@
             <table class="table table-bordered table-hover">
                 <thead>
                 <tr>
-                    <th colspan="5">Inventory</th>
+                    <th colspan="6">Inventory/Items</th>
                 </tr>
                 <tr>
                     <th>Id</th>
                     <th>Title</th>
                     <th>Description</th>
+                    <th>Quantity</th>
                     <th>Status</th>
                     <th>Operations</th>
                 </tr>
@@ -46,6 +53,7 @@
                     <td>{{inventory.id}}</td>
                     <td><strong>{{inventory.title}}</strong></td>
                     <td>{{inventory.description}}</td>
+                    <td>{{inventory.quantity}}</td>
                     <td>{{inventory.status}}</td>
                     <td>
                         {% if inventory.status == "DELETED" %}
@@ -75,14 +83,14 @@
             <table class="table table-bordered table-hover">
                 <thead>
                 <tr>
-                    <th colspan="6">History (Deletion)</th>
+                    <th colspan="6">Operation(s) History</th>
                 </tr>
                 <tr>
                     <th>Id</th>
                     <th>Entity</th>
                     <th>Entity ID</th>
                     <th>Comment</th>
-                    <th>Operation</th>
+                    <th>Original Operation</th>
                     <th>Status</th>
                 </tr>
                 </thead>
