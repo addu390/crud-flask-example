@@ -32,7 +32,7 @@ def add():
         inventory = Inventory(title=title, description=description)
         db.session.add(inventory)
         db.session.commit()
-        return redirect('/')
+    return redirect('/')
 
 
 @app.route('/update/<int:id>', methods=['POST'])
@@ -69,7 +69,7 @@ def undo(id):
     delete_histories = History.query.filter_by(entity="INVENTORY", entity_id=id, status="DELETED").all()
 
     if len(delete_histories) > 1:
-        return "some shit"
+        return "Multiple delete histories", 400
     delete_history = delete_histories[0]
 
     if inventory.status == "DELETED":
