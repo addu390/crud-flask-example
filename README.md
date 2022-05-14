@@ -8,3 +8,4 @@
 - `flask db upgrade`
 - `flask run`
 - For auto reload: `export FLASK_DEBUG=1`
+
