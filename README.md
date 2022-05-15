@@ -1,7 +1,11 @@
-# Inventory Management - Flask Application
+# Inventory Management - Shopify Fall 2022
 
-CRUD Operations of inventory.
+CRUD Operations of inventory with deletion comments and undeletion.
 ![](images/inventory-dashboard.png)
+
+### Requirements
+- Basic CRUD Functionality.
+- When deleting, allow deletion comments and undeletion.
 
 ### Replit Set-up
 - The `.replit` file pre-configured to `RUN` on Replit
