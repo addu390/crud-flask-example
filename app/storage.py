@@ -13,7 +13,7 @@ class InventoryDao:
         return inventories
 
     def get_page(self, page, offset):
-        return Inventory.query.order_by(Inventory.updated_at.desc()).paginate(page, offset, error_out=False)
+        return Inventory.query.order_by(Inventory.created_at.desc()).paginate(page, offset, error_out=False)
 
     def add(self, item, commit=True):
         inventory = Inventory(title=item.title, description=item.description, quantity=item.quantity)
@@ -52,7 +52,7 @@ class HistoryDao:
         return histories
 
     def get_page(self, page, offset):
-        return History.query.order_by(History.updated_at.desc()).paginate(page, offset, error_out=False)
+        return History.query.order_by(History.created_at.desc()).paginate(page, offset, error_out=False)
 
     def get_all(self):
         histories = [History.serialize(history) for history in History.query.all()]
