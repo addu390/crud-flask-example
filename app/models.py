@@ -12,7 +12,7 @@ class Inventory(db.Model):
     status = db.Column(db.String(50), nullable=False, default=ACTIVE)
 
     created_at = db.Column(db.DateTime(timezone=True), server_default=db.func.now())
-    updated_at = db.Column(db.DateTime(timezone=True), onupdate=db.func.now())
+    updated_at = db.Column(db.DateTime(timezone=True), server_default=db.func.now(), onupdate=db.func.now())
 
     def serialize(self):
         return {
@@ -39,7 +39,7 @@ class History(db.Model):
     comment = db.Column(db.String(255), nullable=False)
 
     created_at = db.Column(db.DateTime(timezone=True), server_default=db.func.now())
-    updated_at = db.Column(db.DateTime(timezone=True), onupdate=db.func.now())
+    updated_at = db.Column(db.DateTime(timezone=True), server_default=db.func.now(), onupdate=db.func.now())
 
     def serialize(self):
         return {
