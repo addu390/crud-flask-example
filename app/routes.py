@@ -13,10 +13,10 @@ history_service = HistoryService()
 
 
 @app.route('/')
-@app.route('/index')
-def index():
-    inventories = inventory_service.get_all()
-    histories = history_service.get_all()
+@app.route('/index/<int:i_page>/<int:h_page>')
+def index(i_page=1, h_page=1):
+    inventories = inventory_service.get_page(i_page, OFFSET)
+    histories = history_service.get_page(h_page, OFFSET)
     return render_template('index.html', inventories=inventories, histories=histories)
 
 

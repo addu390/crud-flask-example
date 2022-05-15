@@ -10,6 +10,9 @@ class InventoryService:
     def get(self, id):
         return inventory_dao.get(id)
 
+    def get_page(self, page, offset):
+        return inventory_dao.get_page(page, offset)
+
     def get_all(self):
         return inventory_dao.get_all()
 
@@ -46,6 +49,9 @@ class InventoryService:
 class HistoryService:
     def get_all(self):
         return history_dao.get_all()
+
+    def get_page(self, page, offset):
+        return history_dao.get_page(page, offset)
 
 
 def error_response(message):

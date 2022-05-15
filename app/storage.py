@@ -12,6 +12,9 @@ class InventoryDao:
         inventories = [Inventory.serialize(inventory) for inventory in Inventory.query.all()]
         return inventories
 
+    def get_page(self, page, offset):
+        return Inventory.query.order_by(Inventory.updated_at.desc()).paginate(page, offset, error_out=False)
+
     def add(self, item, commit=True):
         inventory = Inventory(title=item.title, description=item.description, quantity=item.quantity)
         db.session.add(inventory)
@@ -43,13 +46,16 @@ class InventoryDao:
 
 
 class HistoryDao:
-    def get_all(self):
-        histories = [History.serialize(history) for history in History.query.all()]
-        return histories
-
     def get(self, entity, entity_id, status):
         histories = [History.serialize(history) for history in
                      History.query.filter_by(entity=entity, entity_id=entity_id, status=status).all()]
+        return histories
+
+    def get_page(self, page, offset):
+        return History.query.order_by(History.updated_at.desc()).paginate(page, offset, error_out=False)
+
+    def get_all(self):
+        histories = [History.serialize(history) for history in History.query.all()]
         return histories
 
     def add(self, history, commit=True):

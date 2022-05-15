@@ -48,7 +48,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for inventory in inventories %}
+                {% for inventory in inventories.items %}
                 <tr>
                     <td>{{inventory.id}}</td>
                     <td><strong>{{inventory.title}}</strong></td>
@@ -76,8 +76,9 @@
                 </tr>
                 {% endfor %}
                 </tbody>
-
             </table>
+            {% if inventories.has_prev %}<a href="{{ url_for('index', i_page=inventories.prev_num, h_page=histories.page) }}">&lt; Newer</a>{% else %}&lt; Newer{% endif %} |
+            {% if inventories.has_next %}<a href="{{ url_for('index', i_page=inventories.next_num, h_page=histories.page) }}">Older &gt;</a>{% else %}Older &gt;{% endif %}
         </div>
         <div class="col-md-6">
             <table class="table table-bordered table-hover">
@@ -95,7 +96,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for history in histories %}
+                {% for history in histories.items %}
                 <tr>
                     <td>{{history.id}}</td>
                     <td>{{history.entity}}</td>
@@ -108,6 +109,8 @@
                 </tbody>
 
             </table>
+            {% if histories.has_prev %}<a href="{{ url_for('index', i_page=inventories.page, h_page=histories.prev_num) }}">&lt; Newer</a>{% else %}&lt; Newer{% endif %} |
+            {% if histories.has_next %}<a href="{{ url_for('index', i_page=inventories.page, h_page=histories.next_num) }}">Older &gt;</a>{% else %}Older &gt;{% endif %}
         </div>
     </div>
 </div>

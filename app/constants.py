@@ -27,3 +27,5 @@ DELETE = "DELETE"
 OPERATIONS = (
     (DELETE, "Delete")
 )
+
+OFFSET = 2

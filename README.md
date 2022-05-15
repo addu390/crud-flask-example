@@ -28,6 +28,7 @@ Set `export FLASK_DEBUG=1` for auto-reload.
 - After adding, `Edit` or `Delete` the item, where `Edit` is a simple update operation on allowed fields.
 - `delete` in this context is a soft delete. Ensure to add a comment mentioning the reason for deletion. 
 - After deleting, `undo` the deletion if necessary while keeping track of the delete/restore history; the deletion history record will now be updated to `RESTORED`
+- Lists are paginated; use `< Newer | Older >` to navigate across pages.
 
 ![](images/inventory-deletion.png)
 
