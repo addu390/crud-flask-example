@@ -1,1 +1,2 @@
-run = ["sh", "run.sh"]
+language = "python3"
+run = "sh run.sh"
