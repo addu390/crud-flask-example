@@ -3,7 +3,9 @@
 CRUD Operations of inventory.
 ![](images/inventory-dashboard.png)
 
-### Set-up
+### Replit Set-up
+- The `.replit` file pre-configured to `RUN` on Replit
+- Or run the below commands in the same order in Replit shell.
 ```
 pip install -r requirements.txt
 export FLASK_APP=setup.py
