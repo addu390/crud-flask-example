@@ -3,6 +3,10 @@ from app import app
 from .constants import *
 from .service import InventoryService, HistoryService
 from .dto import ItemDto, HistoryDto
+from flask_cors import CORS
+
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 inventory_service = InventoryService()
 history_service = HistoryService()
