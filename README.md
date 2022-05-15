@@ -1,7 +1,7 @@
 # Inventory Management - Flask Application
 
-### Usage
-- CRUD Operations of inventory.
+CRUD Operations of inventory.
+![](images/inventory-dashboard.png)
 
 ### Set-up
 ```
@@ -20,8 +20,14 @@ Set `export FLASK_DEBUG=1` for auto-reload.
 - `delete` in this context is a soft delete. Ensure to add a comment mentioning the reason for deletion. 
 - After deleting, `undo` the deletion if necessary while keeping track of the delete/restore history; the deletion history record will now be updated to `RESTORED`
 
+![](images/inventory-deletion.png)
+
 **Note:**
 - The history is not limited to the inventory table or delete operation and is extendable for other operations and entities.
 - The Inventory and History tables are always consistent, with "all-or-nothing" atomic transactions.
 - At any given point, there can only be one `DELETED` record of an item and 1-or-more record of `RESTORED`.
+- While having individual backend and frontend applications is ideal, the Jinja templating engine is used for simplicity to render the UI.
 
+### Low Coupling and High Cohesion:
+- The storage layer is de-coupled; changing the datastore would require changes only in `storage.py`
+- The resource/API layer `routes.py` only depends on the services classes (`InventoryService` and `HistoryService`) and not the storage layer.

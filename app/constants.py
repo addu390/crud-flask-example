@@ -2,6 +2,7 @@ DESCRIPTION = "description"
 TITLE = "title"
 QUANTITY = "quantity"
 COMMENT = "comment"
+STATUS = "status"
 
 ACTIVE = "ACTIVE"
 INACTIVE = "INACTIVE"

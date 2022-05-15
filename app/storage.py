@@ -1,6 +1,6 @@
 from app.models import Inventory, History
-from app import app, db
-from .constants import DELETED, DELETE
+from app import db
+from .constants import DELETED
 
 
 class InventoryDao:

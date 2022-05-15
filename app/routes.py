@@ -1,31 +1,30 @@
 from flask import render_template, request, redirect
-from app import app, db
-from app.models import Inventory, History
+from app import app
 from .constants import *
-from .storage import InventoryDao, HistoryDao
+from .service import InventoryService, HistoryService
 from .dto import ItemDto, HistoryDto
 
-inventory_dao = InventoryDao()
-history_dao = HistoryDao()
+inventory_service = InventoryService()
+history_service = HistoryService()
 
 
 @app.route('/')
 @app.route('/index')
 def index():
-    inventories = inventory_dao.get_all()
-    histories = history_dao.get_all()
+    inventories = inventory_service.get_all()
+    histories = history_service.get_all()
     return render_template('index.html', inventories=inventories, histories=histories)
 
 
 @app.route('/update/<int:id>')
 def updateRoute(id):
-    inventory = inventory_dao.get(id)
+    inventory = inventory_service.get(id)
     return render_template('update.html', inventory=inventory)
 
 
 @app.route('/delete/<int:id>')
 def deleteRoute(id):
-    inventory = inventory_dao.get(id)
+    inventory = inventory_service.get(id)
     return render_template('delete.html', inventory=inventory)
 
 
@@ -33,54 +32,28 @@ def deleteRoute(id):
 def add():
     if request.method == 'POST':
         form = request.form
-
         item = ItemDto(title=form.get(TITLE), description=form.get(DESCRIPTION), quantity=int(form.get(QUANTITY)))
-        inventory_dao.add(item)
+        inventory_service.add(item)
     return redirect('/')
 
 
 @app.route('/update/<int:id>', methods=['POST'])
 def update(id):
-    inventory = inventory_dao.get(id)
-    if inventory:
-        form = request.form
-        item = ItemDto(title=form.get(TITLE), description=form.get(DESCRIPTION), quantity=int(form.get(QUANTITY)))
-        inventory_dao.update(id, item)
-    else:
-        return error_response("Invalid item ID"), 400
+    form = request.form
+    item = ItemDto(title=form.get(TITLE), description=form.get(DESCRIPTION), quantity=int(form.get(QUANTITY)))
+    inventory_service.update(id, item)
     return redirect('/')
 
 
 @app.route('/delete/<int:id>', methods=['POST'])
 def delete(id):
     if request.method == 'POST':
-        form = request.form
-
-        inventory_dao.delete(id, False)
-
-        history = HistoryDto(comment=form.get(COMMENT), entity_id=id, operation=DELETE)
-        history_dao.add(history, True)
+        history = HistoryDto(comment=request.form.get(COMMENT), entity_id=id, operation=DELETE)
+        inventory_service.delete(id, history)
     return redirect('/')
 
 
 @app.route('/undo/<int:id>')
 def undo(id):
-    inventory = inventory_dao.get(id)
-    print(inventory)
-    delete_histories = History.query.filter_by(entity=INVENTORY, entity_id=id, status=DELETED).all()
-
-    if len(delete_histories) > 1:
-        return error_response("Multiple delete histories"), 400
-    delete_history = delete_histories[0]
-
-    if inventory.get('status') == DELETED:
-
-        inventory_dao.update(id, ItemDto(status=ACTIVE), False)
-        history_dao.update(delete_history.id, HistoryDto(status=RESTORED), True)
-    else:
-        return error_response("Only deleted item can be restored"), 400
+    inventory_service.undo(id)
     return redirect('/')
-
-
-def error_response(message):
-    return {"error": message}
