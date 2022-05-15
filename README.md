@@ -1,6 +1,8 @@
 # Inventory Management - Shopify Fall 2022
 
 CRUD Operations of inventory with deletion comments and undeletion.
+Replit Link: [https://replit.com/@addu390/shopify-inventory-management](https://replit.com/@addu390/shopify-inventory-management)
+
 ![](images/inventory-dashboard.png)
 
 ### Requirements
